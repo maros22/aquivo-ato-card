@@ -1,6 +1,6 @@
-# Aquivo ATO Card · 1.0.0
+# Aquivo ATO Card · 1.0.1
 
-Karta pre dopúšťač Aquivo ATO / NET4U-ATO-ZB a Home Assistant. Zobrazuje zásobník, plavák, pumpu, dopustené dnes a posledné dopúšťanie. Komunikuje cez Zigbee2MQTT.
+Karta pre dopúšťač Aquivo ATO a Home Assistant. Zobrazuje zásobník, plavák, pumpu, dopustené dnes a posledné dopúšťanie. Komunikuje cez Zigbee2MQTT.
 
 ## HACS
 
@@ -20,7 +20,7 @@ Pri prechode z ručnej inštalácie odstráň starý JavaScript zdroj tejto kart
 
 ## Bez HACS
 
-Stiahni JavaScript z webu zariadenia alebo rozbaľ ZIP. Súbor `net4u-ato-card.js` skopíruj do `/config/www/` a pridaj `/local/net4u-ato-card.js?v=1.0.0` ako Modul JavaScriptu. Obnov prehliadač. ZIP obsahuje aj pomocnú integráciu; pri nej postupuj podľa priloženého návodu a nepoužívaj druhý JavaScript zdroj súčasne.
+Stiahni JavaScript z webu zariadenia alebo rozbaľ ZIP. Súbor `net4u-ato-card.js` skopíruj do `/config/www/` a pridaj `/local/net4u-ato-card.js?v=1.0.1` ako Modul JavaScriptu. Obnov prehliadač. ZIP obsahuje aj pomocnú integráciu; pri nej postupuj podľa priloženého návodu a nepoužívaj druhý JavaScript zdroj súčasne.
 
 Odkaz na web sleduje aktuálnu DHCP adresu ATO. Pri prechode zo starého firmvéru obnov interview a konfiguráciu zariadenia v Zigbee2MQTT, aby pribudli endpointy 70–72. Náhradnú adresu pre starší firmvér možno zadať v editore.
 

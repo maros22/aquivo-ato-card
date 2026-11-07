@@ -1,5 +1,5 @@
-/* NET4U ATO Card 1.0.0 — local dashboard UI, no external dependencies. */
-const VERSION = '1.0.0';
+/* Aquivo ATO Card 1.0.1 — local dashboard UI, no external dependencies. */
+const VERSION = '1.0.1';
 const registryCache = new WeakMap();
 const FIELDS = {
   mode: ['binary_output_1', 'Automatické dopúšťanie', 'switch'],
@@ -303,7 +303,7 @@ class Net4uAtoCard extends HTMLElement {
     const signature=JSON.stringify([this._config,this._deviceId,this._registryError,this._message,this._command,this._todayKey,this._todayAnchor,this._todayRetryAt,this._settledCounter,this._lastFill,this._lastFillError,this._lastFillPending,Object.entries(this._map).map(([k,id])=>[k,id,this._hass.states[id]?.state])]);
     if(signature===this._lastDraw) return; this._lastDraw=signature;
     this._el('title').textContent=this._config.name || this._device?.name_by_user || 'Akvárium';
-    const empty=this._registryError || (!this._registry?'Načítavam dopúšťač…':!this._device?'V nastavení karty vyber dopúšťač NET4U.':!this._map.mode?'Entity dopúšťača sa ešte nenačítali. Skontroluj Zigbee2MQTT.':'');
+    const empty=this._registryError || (!this._registry?'Načítavam dopúšťač…':!this._device?'V nastavení karty vyber dopúšťač Aquivo.':!this._map.mode?'Entity dopúšťača sa ešte nenačítali. Skontroluj Zigbee2MQTT.':'');
     this._el('empty').textContent=empty;this._el('empty').hidden=!empty;this._el('body').hidden=!!empty;
     const online=validState(this._state('mode')); const automatic=this._isOn('mode');const fault=this._isOn('fault');const pumping=this._isOn('pump');
     const percent=this._number('percent'),remaining=this._number('remaining'),capacity=this._number('capacity');
@@ -388,7 +388,7 @@ class Net4uAtoCardEditor extends HTMLElement {
   _render(){
     if(!this._config)return;
     const devices=this._registry?devicesFor(this._registry):[];
-    this.shadowRoot.innerHTML=`<style>:host{display:block;padding:8px}label{display:block;margin:0 0 16px;font-size:13px}input,select{display:block;width:100%;margin-top:8px;padding:12px;box-sizing:border-box;border:1px solid var(--divider-color,#ccc);border-radius:8px;color:var(--primary-text-color);background:var(--card-background-color);font:inherit}p{font-size:12px;color:var(--secondary-text-color);line-height:1.6}</style><label>Názov karty<input id="name" value="${escape(this._config.name||'Akvárium')}"></label><label>Dopúšťač<select id="device"><option value="">Automaticky (ak je iba jeden)</option>${devices.map(d=>`<option value="${escape(d.id)}" ${d.id===this._config.device_id?'selected':''}>${escape(d.name_by_user||d.name||'NET4U ATO')}</option>`).join('')}</select></label><label>Náhradná adresa webu ATO<input id="web-url" placeholder="Automaticky zo zariadenia" value="${escape(this._config.web_url||'')}"></label><p>${escape(this._error||(!this._registry?'Načítavam zariadenia…':!devices.length?'Dopúšťač NET4U-ATO-ZB sa ešte nenašiel. Najprv ho pridaj cez Zigbee2MQTT.':'Karta sama nájde entity vybraného dopúšťača. Kalibrácia a ochrany ostávajú vo firmvéri.'))}</p>`;
+    this.shadowRoot.innerHTML=`<style>:host{display:block;padding:8px}label{display:block;margin:0 0 16px;font-size:13px}input,select{display:block;width:100%;margin-top:8px;padding:12px;box-sizing:border-box;border:1px solid var(--divider-color,#ccc);border-radius:8px;color:var(--primary-text-color);background:var(--card-background-color);font:inherit}p{font-size:12px;color:var(--secondary-text-color);line-height:1.6}</style><label>Názov karty<input id="name" value="${escape(this._config.name||'Akvárium')}"></label><label>Dopúšťač<select id="device"><option value="">Automaticky (ak je iba jeden)</option>${devices.map(d=>`<option value="${escape(d.id)}" ${d.id===this._config.device_id?'selected':''}>${escape(d.name_by_user||d.name||'Aquivo ATO')}</option>`).join('')}</select></label><label>Náhradná adresa webu ATO<input id="web-url" placeholder="Automaticky zo zariadenia" value="${escape(this._config.web_url||'')}"></label><p>${escape(this._error||(!this._registry?'Načítavam zariadenia…':!devices.length?'Dopúšťač Aquivo ATO sa ešte nenašiel. Najprv ho pridaj cez Zigbee2MQTT.':'Karta sama nájde entity vybraného dopúšťača. Kalibrácia a ochrany ostávajú vo firmvéri.'))}</p>`;
     this.shadowRoot.getElementById('name').onchange=e=>this._changed('name',e.target.value);
     this.shadowRoot.getElementById('web-url').onchange=e=>{const raw=e.target.value.trim(),url=webAddress(raw);if(raw&&!url){e.target.setCustomValidity('Zadaj platnú HTTP alebo HTTPS adresu.');e.target.reportValidity();return;}e.target.setCustomValidity('');this._changed('web_url',url);};
     this.shadowRoot.getElementById('device').onchange=e=>this._changed('device_id',e.target.value);
@@ -397,5 +397,5 @@ class Net4uAtoCardEditor extends HTMLElement {
 if(!customElements.get('net4u-ato-card'))customElements.define('net4u-ato-card',Net4uAtoCard);
 if(!customElements.get('net4u-ato-card-editor'))customElements.define('net4u-ato-card-editor',Net4uAtoCardEditor);
 window.customCards=window.customCards||[];
-if(!window.customCards.some(c=>c.type==='net4u-ato-card'))window.customCards.push({type:'net4u-ato-card',name:'NET4U · Akváriový dopúšťač',description:'Zostatok vody, dopúšťanie a bezpečné ovládanie AUTO / SERVICE.',preview:true});
-console.info(`%c NET4U ATO CARD %c ${VERSION} `,'background:#158a7d;color:white;padding:4px','background:#153d44;color:white;padding:4px');
+if(!window.customCards.some(c=>c.type==='net4u-ato-card'))window.customCards.push({type:'net4u-ato-card',name:'Aquivo · Akváriový dopúšťač',description:'Zostatok vody, dopúšťanie a bezpečné ovládanie AUTO / SERVICE.',preview:true});
+console.info(`%c AQUIVO ATO CARD %c ${VERSION} `,'background:#158a7d;color:white;padding:4px','background:#153d44;color:white;padding:4px');
