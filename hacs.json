@@ -1,1 +1,5 @@
-{"name": "Aquivo ATO Card", "filename": "aquivo-ato-card.js"}
+{
+  "name": "Aquivo ATO Card",
+  "filename": "aquivo-ato-card.js",
+  "render_readme": true
+}
