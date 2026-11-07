@@ -1,5 +1,5 @@
-/* Aquivo ATO Card 1.0.1 — local dashboard UI, no external dependencies. */
-const VERSION = '1.0.1';
+/* Aquivo ATO Card 1.0.2 — local dashboard UI, no external dependencies. */
+const VERSION = '1.0.2';
 const registryCache = new WeakMap();
 const FIELDS = {
   mode: ['binary_output_1', 'Automatické dopúšťanie', 'switch'],
@@ -136,7 +136,7 @@ function historyAnchor(rows, start, current, queriedAt) {
   return {base,offset};
 }
 function devicesFor(registry) {
-  return registry.devices.filter(d => d.manufacturer === 'NET4U' && (d.model_id === 'NET4U-ATO-ZB' || /(?:^|[^A-Z0-9])NET4U-ATO-ZB(?:$|[^A-Z0-9])/.test(d.model || '')));
+  return registry.devices.filter(d => d.manufacturer === 'Aquivo' && (d.model_id === 'AQUIVO-ATO-ZB' || /(?:^|[^A-Z0-9])AQUIVO-ATO-ZB(?:$|[^A-Z0-9])/.test(d.model || '')));
 }
 function mapEntities(registry, deviceId) {
   const entities = registry.entities.filter(e => e.device_id === deviceId && !e.disabled_by);
@@ -164,7 +164,7 @@ async function getRegistry(hass, force = false) {
 }
 const ICON = `<svg viewBox="0 0 64 64" aria-hidden="true"><path d="M10 25h44v24a7 7 0 0 1-7 7H17a7 7 0 0 1-7-7Z" fill="currentColor" opacity=".14"/><path d="M10 32c8-8 14 8 22 0s14 8 22 0M10 25h44v24a7 7 0 0 1-7 7H17a7 7 0 0 1-7-7Z" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/><path d="M38 14c0 8-12 8-12 0 0-4 6-11 6-11s6 7 6 11Z" fill="currentColor"/><path d="m24 42-5-4v8Zm0 0c5-6 13-6 18 0-5 6-13 6-18 0" fill="currentColor"/><circle cx="37" cy="41" r="1" fill="var(--ha-card-background,var(--card-background-color,#fff))"/></svg>`;
 
-class Net4uAtoCard extends HTMLElement {
+class AquivoAtoCard extends HTMLElement {
   constructor() {
     super(); this.attachShadow({mode: 'open'}); this._map = {}; this._registry = null;
     this._loading = false; this._command = null; this._message = ''; this._lastDraw = '';
@@ -172,8 +172,8 @@ class Net4uAtoCard extends HTMLElement {
     this._lastFillSerial=0;this._lastFillKey='';this._lastFill=null;this._lastFillPending=null;this._lastFillAt=0;
     this._settledCounter=null;
   }
-  static getConfigElement() { return document.createElement('net4u-ato-card-editor'); }
-  static getStubConfig() { return {type: 'custom:net4u-ato-card', name: 'Akvárium'}; }
+  static getConfigElement() { return document.createElement('aquivo-ato-card-editor'); }
+  static getStubConfig() { return {type: 'custom:aquivo-ato-card', name: 'Akvárium'}; }
   getCardSize() { return 7; }
   getGridOptions() { return {columns: 12, rows: 'auto', min_columns: 6}; }
   setConfig(config) {
@@ -380,7 +380,7 @@ class Net4uAtoCard extends HTMLElement {
     else this._el('modal-error').textContent=this._message;
   }
 }
-class Net4uAtoCardEditor extends HTMLElement {
+class AquivoAtoCardEditor extends HTMLElement {
   constructor(){super();this.attachShadow({mode:'open'});this._registry=null;}
   setConfig(config){this._config={...config};this._render();}
   set hass(hass){this._hass=hass;if(!this._loading&&!this._registry){this._loading=true;getRegistry(hass).then(r=>{this._registry=r;this._render();}).catch(()=>{this._error='Nepodarilo sa načítať zariadenia.';this._render();}).finally(()=>this._loading=false);}}
@@ -394,8 +394,8 @@ class Net4uAtoCardEditor extends HTMLElement {
     this.shadowRoot.getElementById('device').onchange=e=>this._changed('device_id',e.target.value);
   }
 }
-if(!customElements.get('net4u-ato-card'))customElements.define('net4u-ato-card',Net4uAtoCard);
-if(!customElements.get('net4u-ato-card-editor'))customElements.define('net4u-ato-card-editor',Net4uAtoCardEditor);
+if(!customElements.get('aquivo-ato-card'))customElements.define('aquivo-ato-card',AquivoAtoCard);
+if(!customElements.get('aquivo-ato-card-editor'))customElements.define('aquivo-ato-card-editor',AquivoAtoCardEditor);
 window.customCards=window.customCards||[];
-if(!window.customCards.some(c=>c.type==='net4u-ato-card'))window.customCards.push({type:'net4u-ato-card',name:'Aquivo · Akváriový dopúšťač',description:'Zostatok vody, dopúšťanie a bezpečné ovládanie AUTO / SERVICE.',preview:true});
+if(!window.customCards.some(c=>c.type==='aquivo-ato-card'))window.customCards.push({type:'aquivo-ato-card',name:'Aquivo · Akváriový dopúšťač',description:'Zostatok vody, dopúšťanie a bezpečné ovládanie AUTO / SERVICE.',preview:true});
 console.info(`%c AQUIVO ATO CARD %c ${VERSION} `,'background:#158a7d;color:white;padding:4px','background:#153d44;color:white;padding:4px');

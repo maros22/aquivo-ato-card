@@ -1,4 +1,4 @@
-# Aquivo ATO Card · 1.0.1
+# Aquivo ATO Card · 1.0.2
 
 Karta pre dopúšťač Aquivo ATO a Home Assistant. Zobrazuje zásobník, plavák, pumpu, dopustené dnes a posledné dopúšťanie. Komunikuje cez Zigbee2MQTT.
 
@@ -10,7 +10,7 @@ Karta pre dopúšťač Aquivo ATO a Home Assistant. Zobrazuje zásobník, plavá
 4. Pridaj kartu do dashboardu:
 
 ```yaml
-type: custom:net4u-ato-card
+type: custom:aquivo-ato-card
 name: Dopúšťanie
 ```
 
@@ -20,7 +20,7 @@ Pri prechode z ručnej inštalácie odstráň starý JavaScript zdroj tejto kart
 
 ## Bez HACS
 
-Stiahni JavaScript z webu zariadenia alebo rozbaľ ZIP. Súbor `net4u-ato-card.js` skopíruj do `/config/www/` a pridaj `/local/net4u-ato-card.js?v=1.0.1` ako Modul JavaScriptu. Obnov prehliadač. ZIP obsahuje aj pomocnú integráciu; pri nej postupuj podľa priloženého návodu a nepoužívaj druhý JavaScript zdroj súčasne.
+Stiahni JavaScript z webu zariadenia alebo rozbaľ ZIP. Súbor `aquivo-ato-card.js` skopíruj do `/config/www/` a pridaj `/local/aquivo-ato-card.js?v=1.0.2` ako Modul JavaScriptu. Obnov prehliadač. ZIP obsahuje aj pomocnú integráciu; pri nej postupuj podľa priloženého návodu a nepoužívaj druhý JavaScript zdroj súčasne.
 
 Odkaz na web sleduje aktuálnu DHCP adresu ATO. Pri prechode zo starého firmvéru obnov interview a konfiguráciu zariadenia v Zigbee2MQTT, aby pribudli endpointy 70–72. Náhradnú adresu pre starší firmvér možno zadať v editore.
 
@@ -29,3 +29,9 @@ Odkaz na web sleduje aktuálnu DHCP adresu ATO. Pri prechode zo starého firmvé
 Dopustené dnes sa počíta z histórie HASS od miestnej polnoci. Ochranný limit firmvéru má samostatné 24-hodinové obdobie. Objemy sú odhad podľa kalibrácie, nie meranie hladiny. Karta nezapína pumpu pri inštalácii ani neobchádza ochrany ATO. Zmeny zásobníka a potvrdenie alarmu vyžadujú SERVICE.
 
 Firmvér a aktualizácie: https://github.com/maros22/aquivo-ato-updates . Kartu, návod a aktualizácie možno stiahnuť bez kľúča výrobcu.
+
+## Prechod zo staršej karty
+
+V existujúcej karte uprav iba typ na `custom:aquivo-ato-card`. Nemaž zariadenie ani jeho entity; história je naviazaná na ne. Používaj iba jeden JavaScript zdroj novej karty. Zariadenie po zmene názvu modelu obnov cez interview a prekonfigurovanie v Zigbee2MQTT, bez odstraňovania alebo nového párovania.
+
+MQTT používa témy `aquivo/ato-<MAC>/…`. V Homey prekopíruj nové Topics z webu ATO do existujúceho MQTT zariadenia, aby zostali zachované jeho väzby a Flows.
