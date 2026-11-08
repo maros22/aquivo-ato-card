@@ -1,8 +1,12 @@
-# Aquivo ATO Card · 1.2.0
+# Aquivo ATO Card · 1.2.1
 
 A Home Assistant dashboard card for Aquivo ATO, using Zigbee2MQTT. Shows water reserve, pump, float switch, water added today and last top-up. Bundled offline translations: **Slovenčina · Čeština · Magyar · Polski · English · Deutsch · Français**.
 
 [![Open in HACS](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=maros22&repository=aquivo-ato-card&category=plugin)
+
+## 1.2.1
+
+A dedicated **Float switch** field shows normal level, a top-up request, unknown/unavailable state or the latched float/cable fault. Float alarm 7 is shown prominently and cannot be hidden by the last normal contact state. This uses existing Zigbee entities and requires no firmware update. All seven languages are included. The card cannot distinguish a currently disconnected cable from a previously latched float fault until the alarm is acknowledged; voltage diagnostics remain on the device web page.
 
 ## 1.2.0
 
@@ -27,7 +31,7 @@ Resource, if HACS does not add it automatically: `/hacsfiles/aquivo-ato-card/aqu
 
 ## Local installation
 
-Download `aquivo-ato-card.js` from Releases or the ATO web interface. Copy to `/config/www/` (or `/homeassistant/www/`) and add `/local/aquivo-ato-card.js?v=1.2.0` as a JavaScript module in Settings → Dashboards → menu → Resources. Reload and use the YAML above. The ZIP also contains the optional `aquivo_ato` helper integration and its guide. Use only one resource: when switching to HACS, remove the old resource entry to avoid loading the card twice. Keep the dashboard, device and entities to preserve history.
+Download `aquivo-ato-card.js` from Releases or the ATO web interface. Copy to `/config/www/` (or `/homeassistant/www/`) and add `/local/aquivo-ato-card.js?v=1.2.1` as a JavaScript module in Settings → Dashboards → menu → Resources. Reload and use the YAML above. The ZIP also contains the optional `aquivo_ato` helper integration and its guide. Use only one resource: when switching to HACS, remove the old resource entry to avoid loading the card twice. Keep the dashboard, device and entities to preserve history.
 
 ## Slovenčina
 
