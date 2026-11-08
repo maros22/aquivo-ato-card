@@ -1,10 +1,12 @@
-# Aquivo ATO Card · 1.1.1
+# Aquivo ATO Card · 1.2.0
 
 A Home Assistant dashboard card for Aquivo ATO, using Zigbee2MQTT. Shows water reserve, pump, float switch, water added today and last top-up. Bundled offline translations: **Slovenčina · Čeština · Magyar · Polski · English · Deutsch · Français**.
 
 [![Open in HACS](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=maros22&repository=aquivo-ato-card&category=plugin)
 
-## 1.1.1
+## 1.2.0
+
+Adds the supervised float/cable alarm (firmware 1.2.0, two 4k7 resistors required). Older firmware remains supported by this card.
 
 Last top-up now refreshes automatically when Recorder receives a pump stop later than the live state. The card retries briefly without a page reload, shows a waiting state instead of the previous run, then allows 75 seconds for volume reports to settle. No firmware update or device command is required.
 
@@ -25,7 +27,7 @@ Resource, if HACS does not add it automatically: `/hacsfiles/aquivo-ato-card/aqu
 
 ## Local installation
 
-Download `aquivo-ato-card.js` from Releases or the ATO web interface. Copy to `/config/www/` (or `/homeassistant/www/`) and add `/local/aquivo-ato-card.js?v=1.1.1` as a JavaScript module in Settings → Dashboards → menu → Resources. Reload and use the YAML above. The ZIP also contains the optional `aquivo_ato` helper integration and its guide. Use only one resource: when switching to HACS, remove the old resource entry to avoid loading the card twice. Keep the dashboard, device and entities to preserve history.
+Download `aquivo-ato-card.js` from Releases or the ATO web interface. Copy to `/config/www/` (or `/homeassistant/www/`) and add `/local/aquivo-ato-card.js?v=1.2.0` as a JavaScript module in Settings → Dashboards → menu → Resources. Reload and use the YAML above. The ZIP also contains the optional `aquivo_ato` helper integration and its guide. Use only one resource: when switching to HACS, remove the old resource entry to avoid loading the card twice. Keep the dashboard, device and entities to preserve history.
 
 ## Slovenčina
 
